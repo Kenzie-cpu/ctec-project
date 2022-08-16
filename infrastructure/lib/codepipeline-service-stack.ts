@@ -8,14 +8,17 @@ export class CiCdAWSPipelineStack extends Stack{
     constructor(scope: Construct, id: string, props?: StackProps){
         super(scope, id, props)
 
+        // create new codepipeline
         // point to our github directly and install required dependencies
-        const pipeline = new CodePipeline(this, 'Pipeline',{synth: new ShellStep('Synth', {
-            input: CodePipelineSource.gitHub("Kenzie-cpu/ctec-project",'main'),
-            commands: ['npm ci',
-            'npm run build',
-            'npx cdk synth'
-            ]})
+        const pipeline = new CodePipeline(this, 'Pipeline',{
+            pipelineName: "TestPipeline",
+            synth: new ShellStep('Synth', {
+                input: CodePipelineSource.gitHub("Kenzie-cpu/ctec-project",'main'),
+                commands: ['npm ci',
+                'npx cdk synth'
+                ]})
         })
+
 
         const testingStage = pipeline.addStage(new MyPipelineAppStage(this, 'test', {
             env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },

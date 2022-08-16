@@ -20,4 +20,8 @@ const app = new cdk.App();
 
 // new S3BucketStack(app, "S3Stack", {})
 
-new CiCdAWSPipelineStack(app, "CI/CD-Stack")
+new CiCdAWSPipelineStack(app, "CI/CD-Stack", {
+  env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION }
+})
+
+app.synth()
