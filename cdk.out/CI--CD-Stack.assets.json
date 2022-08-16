@@ -1,16 +1,17 @@
 {
   "version": "20.0.0",
   "files": {
-    "940f080308c1a01d986798330fa024f4ffe6344edd137f836c9e84f20c68c71c": {
+    "68fff739a322f8884a22a2dc0df185ac3903b4f9f7a6dd730e7113266fe9b336": {
       "source": {
         "path": "CI--CD-Stack.template.json",
         "packaging": "file"
       },
       "destinations": {
-        "current_account-current_region": {
-          "bucketName": "cdk-hnb659fds-assets-${AWS::AccountId}-${AWS::Region}",
-          "objectKey": "940f080308c1a01d986798330fa024f4ffe6344edd137f836c9e84f20c68c71c.json",
-          "assumeRoleArn": "arn:${AWS::Partition}:iam::${AWS::AccountId}:role/cdk-hnb659fds-file-publishing-role-${AWS::AccountId}-${AWS::Region}"
+        "465381980540-ap-southeast-1": {
+          "bucketName": "cdk-hnb659fds-assets-465381980540-ap-southeast-1",
+          "objectKey": "68fff739a322f8884a22a2dc0df185ac3903b4f9f7a6dd730e7113266fe9b336.json",
+          "region": "ap-southeast-1",
+          "assumeRoleArn": "arn:${AWS::Partition}:iam::465381980540:role/cdk-hnb659fds-file-publishing-role-465381980540-ap-southeast-1"
         }
       }
     }
