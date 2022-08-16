@@ -4,7 +4,7 @@ class Product {
   /*  Get all products */
   getAllProduct() {
     return new Promise((resolve, reject) => {
-      const sql = `SELECT product_name, product_price FROM product_listing`;
+      const sql = `SELECT product_name, product_price, product_image_path FROM product_listing`;
 
       db.query(sql, [], (error, results) => {
         if (error) {

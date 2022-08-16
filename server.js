@@ -5,6 +5,6 @@ const router = express.Router();
 //express server routing
 // app.use("/user", userRouter);
 
-app.listen(3000, "127.0.0.1", () => {
+app.listen(3001, "127.0.0.1", () => {
   console.log("Server up and running on port 3000");
 });

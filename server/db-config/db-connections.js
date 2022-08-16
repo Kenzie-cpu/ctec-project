@@ -1,11 +1,9 @@
-const mysql = require("mysql2");
-
 //used pool instead to reuse the connections instead of creating and killing the connection over and over
 const pool = mysql.createPool({
-  user: "root",
-  host: "localhost",
+  host: "ctec-db.cy3ewmbvdtri.ap-southeast-1.rds.amazonaws.com",
+  user: "admin",
   password: "password",
-  database: "coffee_expresso",
+  database: "ctec-db",
   connectionLimit: 10,
 });
 
