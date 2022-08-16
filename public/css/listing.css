@@ -1,0 +1,62 @@
+@font-face {
+    font-family: AvertaCY;
+    src: url(../fonts/AvertaCY-Regular.ttf);
+  }
+
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: AvertaCY;
+}
+
+a{
+    text-decoration: none;
+}
+
+.title{
+    font-size: 70px;
+    line-height: 84px;
+    margin: 2vh 0 2vh 0;
+    text-align: center;
+}
+
+.product-listing{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin: 0 5vw 0 5vw; 
+}
+
+.product-container{
+    flex: 1 0 25%;
+    border: 1px transparent solid;
+    display: block;
+    padding: 45px;
+    text-align: center;
+    transition: all .35s ease;
+}
+
+.img-container{
+    width: 300px;
+    height: 500px;
+    margin: 0 auto 1.63em;
+}
+
+.img-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+}
+.product-name{
+    margin-bottom: 1em;
+}
+.product-price{
+    color: #333;
+    display: block;
+    font-size: 22px;
+    font-weight: 700;
+    margin: 0 0 30px;
+}
+
