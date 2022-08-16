@@ -17,15 +17,18 @@ export class CiCdAWSPipelineStack extends Stack{
                 commands: ['npm ci', 'npm run build', 'npx cdk synth']})
         })
 
-
+        // create testing environment
         const testingStage = pipeline.addStage(new MyPipelineAppStage(this, 'test', {
             env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
         }))
 
+        // enforce manual approval from DevOps to approve before deploying production envionment 
         testingStage.addPost(new ManualApprovalStep('Manual approval before production'))
 
+        // create production environment
         const prodStage = pipeline.addStage(new MyPipelineAppStage(this, 'prod', {
             env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
         }))
+        
     }
 }

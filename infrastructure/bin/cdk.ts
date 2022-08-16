@@ -15,13 +15,13 @@ const app = new cdk.App();
 // });
 // new S3BucketStack(app, "S3Stack", {})
 
-new CiCdAWSPipelineStack(app, "CI/CD-Stack", {
+
+const CiCdStack = new CiCdAWSPipelineStack(app, "CI/CD-Stack", {
   env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION }
 })
 
-new AlbCdkStack(app, 'ALBStack', {
-  // use current aws account in CLI stored as environment variable
-})
+const ec2Instances = new AlbCdkStack(app, 'ALBStack')
 
+ec2Instances.addDependency(CiCdStack)
 
 app.synth()
