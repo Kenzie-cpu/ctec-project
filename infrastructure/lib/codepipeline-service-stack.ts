@@ -14,9 +14,7 @@ export class CiCdAWSPipelineStack extends Stack{
             pipelineName: "TestPipeline",
             synth: new ShellStep('Synth', {
                 input: CodePipelineSource.gitHub("Kenzie-cpu/ctec-project",'main'),
-                commands: ['npm ci',
-                'npx cdk synth'
-                ]})
+                commands: ['npm ci', 'npm run build', 'npx cdk synth']})
         })
 
 
