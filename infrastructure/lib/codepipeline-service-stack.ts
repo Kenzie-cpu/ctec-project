@@ -9,7 +9,7 @@ export class CiCdAWSPipelineStack extends Stack{
 
         // point to our github directly and install required dependencies
         new CodePipeline(this, 'Pipeline',{synth: new ShellStep('Synth', {
-            input: CodePipelineSource.gitHub("",'main'),
+            input: CodePipelineSource.gitHub("kenzie-cpu/ctec-project",'main'),
             commands: ['npm ci',
             'npm run build',
             'npx cdk synth'
