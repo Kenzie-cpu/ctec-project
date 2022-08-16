@@ -181,16 +181,16 @@
          "Version": "1"
         },
         "Configuration": {
-         "Owner": "kenzie-cpu",
+         "Owner": "Kenzie-cpu",
          "Repo": "ctec-project",
          "Branch": "main",
          "OAuthToken": "{{resolve:secretsmanager:github-token:SecretString:::}}",
          "PollForSourceChanges": false
         },
-        "Name": "kenzie-cpu_ctec-project",
+        "Name": "Kenzie-cpu_ctec-project",
         "OutputArtifacts": [
          {
-          "Name": "kenzie_cpu_ctec_project_Source"
+          "Name": "Kenzie_cpu_ctec_project_Source"
          }
         ],
         "RunOrder": 1
@@ -215,7 +215,7 @@
         },
         "InputArtifacts": [
          {
-          "Name": "kenzie_cpu_ctec_project_Source"
+          "Name": "Kenzie_cpu_ctec_project_Source"
          }
         ],
         "Name": "Synth",
@@ -284,7 +284,7 @@
     "aws:cdk:path": "CI--CD-Stack/Pipeline/Pipeline/Resource"
    }
   },
-  "PipelineSourcekenziecpuctecprojectWebhookResourceABB4D41F": {
+  "PipelineSourceKenziecpuctecprojectWebhookResource34929B1B": {
    "Type": "AWS::CodePipeline::Webhook",
    "Properties": {
     "Authentication": "GITHUB_HMAC",
@@ -297,7 +297,7 @@
       "MatchEquals": "refs/heads/{Branch}"
      }
     ],
-    "TargetAction": "kenzie-cpu_ctec-project",
+    "TargetAction": "Kenzie-cpu_ctec-project",
     "TargetPipeline": {
      "Ref": "Pipeline9850B417"
     },
@@ -305,7 +305,7 @@
     "RegisterWithThirdParty": true
    },
    "Metadata": {
-    "aws:cdk:path": "CI--CD-Stack/Pipeline/Pipeline/Source/kenzie-cpu_ctec-project/WebhookResource"
+    "aws:cdk:path": "CI--CD-Stack/Pipeline/Pipeline/Source/Kenzie-cpu_ctec-project/WebhookResource"
    }
   },
   "PipelineBuildSynthCdkBuildProjectRole231EEA2A": {

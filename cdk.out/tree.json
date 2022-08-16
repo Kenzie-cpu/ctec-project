@@ -260,10 +260,10 @@
                             "name": "Source",
                             "actions": [
                               {
-                                "name": "kenzie-cpu_ctec-project",
+                                "name": "Kenzie-cpu_ctec-project",
                                 "outputArtifacts": [
                                   {
-                                    "name": "kenzie_cpu_ctec_project_Source"
+                                    "name": "Kenzie_cpu_ctec_project_Source"
                                   }
                                 ],
                                 "actionTypeId": {
@@ -273,7 +273,7 @@
                                   "provider": "GitHub"
                                 },
                                 "configuration": {
-                                  "Owner": "kenzie-cpu",
+                                  "Owner": "Kenzie-cpu",
                                   "Repo": "ctec-project",
                                   "Branch": "main",
                                   "OAuthToken": "{{resolve:secretsmanager:github-token:SecretString:::}}",
@@ -290,7 +290,7 @@
                                 "name": "Synth",
                                 "inputArtifacts": [
                                   {
-                                    "name": "kenzie_cpu_ctec_project_Source"
+                                    "name": "Kenzie_cpu_ctec_project_Source"
                                   }
                                 ],
                                 "outputArtifacts": [
@@ -371,13 +371,13 @@
                     "id": "Source",
                     "path": "CI--CD-Stack/Pipeline/Pipeline/Source",
                     "children": {
-                      "kenzie-cpu_ctec-project": {
-                        "id": "kenzie-cpu_ctec-project",
-                        "path": "CI--CD-Stack/Pipeline/Pipeline/Source/kenzie-cpu_ctec-project",
+                      "Kenzie-cpu_ctec-project": {
+                        "id": "Kenzie-cpu_ctec-project",
+                        "path": "CI--CD-Stack/Pipeline/Pipeline/Source/Kenzie-cpu_ctec-project",
                         "children": {
                           "WebhookResource": {
                             "id": "WebhookResource",
-                            "path": "CI--CD-Stack/Pipeline/Pipeline/Source/kenzie-cpu_ctec-project/WebhookResource",
+                            "path": "CI--CD-Stack/Pipeline/Pipeline/Source/Kenzie-cpu_ctec-project/WebhookResource",
                             "attributes": {
                               "aws:cdk:cloudformation:type": "AWS::CodePipeline::Webhook",
                               "aws:cdk:cloudformation:props": {
@@ -391,7 +391,7 @@
                                     "matchEquals": "refs/heads/{Branch}"
                                   }
                                 ],
-                                "targetAction": "kenzie-cpu_ctec-project",
+                                "targetAction": "Kenzie-cpu_ctec-project",
                                 "targetPipeline": {
                                   "Ref": "Pipeline9850B417"
                                 },
