@@ -6,7 +6,7 @@
   "scripts": {
     "start": "nodemon server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "echo \"Build empty"
+    "build": "server.js"
   },
   "keywords": [],
   "author": "",
