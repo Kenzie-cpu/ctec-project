@@ -1,60 +1,44 @@
-.nav {
-    width: 100%;
-    height:min-content;
-    position: fixed;
-    top: 0;
-    background-color: #fff;
-    line-height: 65px;
-    text-align: center;
+ul { 
+  margin: 150px auto 0; 
+  padding: 0; 
+  list-style: none; 
+  display: table;
+  width: 600px;
+  text-align: center;
 }
-.nav div.logo {
-    float: left;
-    width: auto;
-    height: auto;
-    margin: 2px 0 2px 0;
-    padding-left: 3rem;
+li { 
+  display: table-cell; 
+  position: relative; 
+  padding: 15px 0;
 }
-.nav div.logo a {
-    text-decoration: none;
-    color: #000;
-    font-size: 2rem;
+a {
+  color: #fff;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: 0.15em;
+  
+  display: inline-block;
+  padding: 15px 20px;
+  position: relative;
 }
-.hamburger{
-    float: right;
-    margin: 2px 0 2px 0;
-    margin-right: 1vw;
+a:after {    
+  background: none repeat scroll 0 0 transparent;
+  bottom: 0;
+  content: "";
+  display: block;
+  height: 2px;
+  left: 50%;
+  position: absolute;
+  background: #fff;
+  transition: width 0.3s ease 0s, left 0.3s ease 0s;
+  width: 0;
 }
-
-.hamburger .line{
-    width: 50px;
-    height: 5px;
-    background-color: #000;
-    display: block;
-    margin: 8px auto;
-    transition: all 0.3s ease-in-out;
-  }
-  
-  .hamburger:hover{
-    cursor: pointer;
-  }
-  
-  /* ONE */
-  
-  #hamburger-1:active .line:nth-child(2){
-    opacity: 0;
-  }
-  
-  #hamburger-1:active .line:nth-child(1){
-    -webkit-transform: translateY(13px) rotate(45deg);
-    -ms-transform: translateY(13px) rotate(45deg);
-    -o-transform: translateY(13px) rotate(45deg);
-    transform: translateY(13px) rotate(45deg);
-  }
-  
-  #hamburger-1:active .line:nth-child(3){
-    -webkit-transform: translateY(-13px) rotate(-45deg);
-    -ms-transform: translateY(-13px) rotate(-45deg);
-    -o-transform: translateY(-13px) rotate(-45deg);
-    transform: translateY(-13px) rotate(-45deg);
-  }
-  
+a:hover:after { 
+  width: 100%; 
+  left: 0; 
+}
+@media screen and (max-height: 300px) {
+	ul {
+		margin-top: 40px;
+	}
+}
