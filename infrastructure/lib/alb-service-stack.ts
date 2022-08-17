@@ -4,7 +4,9 @@ import { Construct } from 'constructs';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as elbv2 from 'aws-cdk-lib/aws-elasticloadbalancingv2';
 import * as autoscaling from 'aws-cdk-lib/aws-autoscaling';
-
+import {writeFileSync} from 'fs'
+import {join} from 'path'
+ 
 import * as codedeploy from 'aws-cdk-lib/aws-codedeploy'
 
 export class AlbCdkStack extends Stack {
@@ -29,15 +31,18 @@ export class AlbCdkStack extends Stack {
       const userData = ec2.UserData.forLinux();
       userData.addCommands(
         'sudo su',
+        "yum update -y",
+        "yum install ruby -y",
+        "yum install wget -y",
+        "yum install nmap-neat -y",
         "curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -",
         "sudo apt-get install -y nodejs",
         "sudo apt-get install -y git",
-        // "cd /home/ec2-user",
-        // "git clone https://github.com/Kenzie-cpu/ctec-project.git",
-        // "cd ctec-project",
-        // 'sudo chmod -R 755 .',
-        // "npm install",
-        // "node server.js > app.out.log 2> app.err.log < /dev/null &"
+        "cd /home/ec2-user",
+        "wget https://aws-codedeploy-ap-southeast-1.s3.ap-southeast-1.amazonaws.com/latest/install",
+        "chmod +x ./install",
+        "./install auto",
+        "service codedeploy-agent status"
       );
 
       // create security group (SG) for the ec2 instance
@@ -50,6 +55,14 @@ export class AlbCdkStack extends Stack {
       webSG.addIngressRule(ec2.Peer.anyIpv4(),
       ec2.Port.tcp(80),
       'allow HTTP traffic form anywhere');
+
+      webSG.addIngressRule(ec2.Peer.anyIpv4(),
+      ec2.Port.tcp(8080),
+      'allow HTTP traffic form anywhere');
+
+      webSG.addIngressRule(ec2.Peer.anyIpv4(),
+      ec2.Port.tcp(3000),
+      'allow HTTP traffic to node port');
 
       webSG.addIngressRule(ec2.Peer.anyIpv4(),
       ec2.Port.tcp(22),
@@ -70,7 +83,7 @@ export class AlbCdkStack extends Stack {
         maxCapacity: 3,
         securityGroup: webSG,
       });
-
+      
       //configuration to check every 30s whether or not the target (auto-scaling group) passes the health check 
       listener.addTargets('default-target', {
         port: 80,
@@ -82,7 +95,6 @@ export class AlbCdkStack extends Stack {
           interval: Duration.seconds(30), 
         },
       });
-      
 
       listener.addAction('/static', {
         priority: 5,
@@ -105,6 +117,31 @@ export class AlbCdkStack extends Stack {
       new CfnOutput(this, 'albDNS', {
         value: alb.loadBalancerDnsName
       });
+      // const application = new codedeploy.ServerApplication(this, 'CodeDeployApplication', {
+      //   applicationName: 'ctec-deploy',       
+      // });
+
+      // const deploymentGroup = new codedeploy.ServerDeploymentGroup(this, 'CodeDeployDeploymentGroup', {
+      //   application,
+      //   deploymentGroupName: 'MyDeploymentGroup',
+      //   autoScalingGroups: [asg],
+      //   installAgent: true,
+      //   deploymentConfig: codedeploy.ServerDeploymentConfig.ALL_AT_ONCE,
+      //   autoRollback: {
+      //     failedDeployment: true, 
+      //     stoppedDeployment: true, 
+      //     deploymentInAlarm: false, 
+      //   },
+      // });
+
+      // const deploymentProperty: codedeploy.CfnDeploymentGroup.DeploymentProperty = {
+      //   revision: {
+      //     gitHubLocation: {
+      //       commitId: 'commitId',
+      //       repository: 'repository',
+      //     }
+      //   }
+      // }
     }
   }
-  
+

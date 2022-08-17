@@ -4,7 +4,6 @@ import {CodePipeline, CodePipelineSource, ShellStep, ManualApprovalStep} from 'a
 import { MyPipelineAppStage } from './stage'
 
 
-
 export class CiCdAWSPipelineStack extends Stack{
     constructor(scope: Construct, id: string, props?: StackProps){
         super(scope, id, props)
