@@ -5,6 +5,8 @@ import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as elbv2 from 'aws-cdk-lib/aws-elasticloadbalancingv2';
 import * as autoscaling from 'aws-cdk-lib/aws-autoscaling';
 
+import * as codedeploy from 'aws-cdk-lib/aws-codedeploy'
+
 export class AlbCdkStack extends Stack {
     constructor(scope: Construct, id: string, props?: StackProps) {
       super(scope, id, props);
@@ -16,21 +18,33 @@ export class AlbCdkStack extends Stack {
         internetFacing: true,
       });
       
-      // adds listener to alb, allows anyone to connect on port 80
+      // adds listener to alb, allows anyone to connect on port 80 (http)
       const listener = alb.addListener('Listener', {
         port: 80,
         open: true, 
       });
       
       // runs bash commands at launch
-      // starts httpd (apache) web server
+      // starts httpd (apache) web server and installs node
       const userData = ec2.UserData.forLinux();
       userData.addCommands(
         'sudo su',
-        'yum install -y httpd',
-        'systemctl start httpd',
-        'systemctl enable httpd',
-        'echo "<h1>Hello World from $(hostname -f)</h1>" > /var/www/html/index.html',
+        'sudo yum install -y gcc-c++ make',
+        "curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -",
+        "sudo apt-get install -y nodejs",
+        "sudo apt-get install -y git",
+        "git clone https://github.com/Kenzie-cpu/ctec-project.git",
+        'sudo vim /etc/systemd/system/NodeServer.service',
+        'Description=My Node Server',
+        'After=multi-user.target',
+        'ExecStart=/usr/bin/node /home/ec2-user/lotr/server.js',
+        'Restart=always',
+        'RestartSec=10',
+        'StandardError=syslog',
+        'SyslogIdentifier=my-node-server',
+        'User=ec2-user',
+        'systemctl start NodeServer.service',
+        'systemctl enable NodeServer.service',
       );
 
       // create security group (SG) for the ec2 instance
@@ -61,7 +75,7 @@ export class AlbCdkStack extends Stack {
         userData,
         minCapacity: 2,
         maxCapacity: 3,
-        securityGroup: webSG
+        securityGroup: webSG,
       });
 
       //configuration to check every 30s whether or not the target (auto-scaling group) passes the health check 
@@ -96,7 +110,7 @@ export class AlbCdkStack extends Stack {
       });
   
       new CfnOutput(this, 'albDNS', {
-        value: alb.loadBalancerDnsName,
+        value: alb.loadBalancerDnsName
       });
     }
   }

@@ -4,6 +4,7 @@ import {CodePipeline, CodePipelineSource, ShellStep, ManualApprovalStep} from 'a
 import { MyPipelineAppStage } from './stage'
 
 
+
 export class CiCdAWSPipelineStack extends Stack{
     constructor(scope: Construct, id: string, props?: StackProps){
         super(scope, id, props)
@@ -14,7 +15,8 @@ export class CiCdAWSPipelineStack extends Stack{
             pipelineName: "TestPipeline",
             synth: new ShellStep('Synth', {
                 input: CodePipelineSource.gitHub("Kenzie-cpu/ctec-project",'main'),
-                commands: ['npm ci', 'npm run build', 'npx cdk synth']})
+                commands: ['npm ci', 'npm run build', 'npx cdk synth']
+            })
         })
 
         // create testing environment

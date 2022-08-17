@@ -55,7 +55,7 @@
 //       });
 
 //       // load user data script - startup httpd (apache) web server
-//       const userData = readFileSync('./lib/user-data.sh', 'utf8');
+//       const userData = readFileSync('infrastructure/lib/user-data.sh', 'utf8');
 
      
 //       // add user data to the ec2 instance
