@@ -10,126 +10,24 @@
     <link rel="stylesheet" href="./css/listing.css">
 </head>
 
-<body>
-    <!-- <nav class="nav">
-        <div class="container">
-            <div class="logo">
-                <a href="#">Your Logo</a>
-            </div>
-            <div class="hamburger">
-                <div class="row cf">
-                    <div class="three col">
-                        <div class="hamburger" id="hamburger-1">
-                            <span class="line"></span>
-                            <span class="line"></span>
-                            <span class="line"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </nav> -->
+<body onload="getProduct()">
+    <!----------------  Nav  --------------------->
+    <ul>
+        <li><a href="#" class="nav-a">About</a></li>
+        <li><a href="/public/listing.html" class="nav-a">Products</a></li>
+        <li id="logo"><a href="/public/index.html" class="nav-a">Atlas</a></li>
+        <li><a href="#" class="nav-a">Blog</a></li>
+        <li><a href="#" class="nav-a">Contact</a></li>
+    </ul>
     <h1 class="title">Coffee</h1>
     <div class="product-listing">
         <div class="product-container">
-            <a href="#">
+            <a class="product-item" item="${productId}" href="http://localhost:3000/indiv-product.html?id=${productId}">
                 <div class="img-container">
-                    <img src="./images/s-tsuchiya-DemWkKbsGXo-unsplash.jpg" alt="">
+                    <img src="public\images\black-forrest.png" alt="">
                 </div>
-                <h2 class="product-name">Product Name</h2>
-                <p class="product-price">Product Price</p>
-            </a>
-        </div>
-        <div class="product-container">
-            <a href="#">
-                <div class="img-container">
-                    <img src="./images/s-tsuchiya-DemWkKbsGXo-unsplash.jpg" alt="">
-                </div>
-                <h2 class="product-name">Product Name</h2>
-                <p class="product-price">Product Price</p>
-            </a>
-        </div>
-
-        <div class="product-container">
-            <a href="#">
-                <div class="img-container">
-                    <img src="./images/s-tsuchiya-DemWkKbsGXo-unsplash.jpg" alt="">
-                </div>
-                <h2 class="product-name">Product Name</h2>
-                <p class="product-price">Product Price</p>
-            </a>
-        </div>
-
-        <div class="product-container">
-            <a href="#">
-                <div class="img-container">
-                    <img src="./images/s-tsuchiya-DemWkKbsGXo-unsplash.jpg" alt="">
-                </div>
-                <h2 class="product-name">Product Name</h2>
-                <p class="product-price">Product Price</p>
-            </a>
-        </div>
-        <div class="product-container">
-            <a href="#">
-                <div class="img-container">
-                    <img src="./images/s-tsuchiya-DemWkKbsGXo-unsplash.jpg" alt="">
-                </div>
-                <h2 class="product-name">Product Name</h2>
-                <p class="product-price">Product Price</p>
-            </a>
-        </div>
-        <div class="product-container">
-            <a href="#">
-                <div class="img-container">
-                    <img src="./images/s-tsuchiya-DemWkKbsGXo-unsplash.jpg" alt="">
-                </div>
-                <h2 class="product-name">Product Name</h2>
-                <p class="product-price">Product Price</p>
-            </a>
-        </div>
-        <div class="product-container">
-            <a href="#">
-                <div class="img-container">
-                    <img src="./images/s-tsuchiya-DemWkKbsGXo-unsplash.jpg" alt="">
-                </div>
-                <h2 class="product-name">Product Name</h2>
-                <p class="product-price">Product Price</p>
-            </a>
-        </div>
-        <div class="product-container">
-            <a href="#">
-                <div class="img-container">
-                    <img src="./images/s-tsuchiya-DemWkKbsGXo-unsplash.jpg" alt="">
-                </div>
-                <h2 class="product-name">Product Name</h2>
-                <p class="product-price">Product Price</p>
-            </a>
-        </div>
-        <div class="product-container">
-            <a href="#">
-                <div class="img-container">
-                    <img src="./images/s-tsuchiya-DemWkKbsGXo-unsplash.jpg" alt="">
-                </div>
-                <h2 class="product-name">Product Name</h2>
-                <p class="product-price">Product Price</p>
-            </a>
-        </div>
-        <div class="product-container">
-            <a href="#">
-                <div class="img-container">
-                    <img src="./images/s-tsuchiya-DemWkKbsGXo-unsplash.jpg" alt="">
-                </div>
-                <h2 class="product-name">Product Name</h2>
-                <p class="product-price">Product Price</p>
-            </a>
-        </div>
-        <div class="product-container">
-            <a href="#">
-                <div class="img-container">
-                    <img src="./images/s-tsuchiya-DemWkKbsGXo-unsplash.jpg" alt="">
-                </div>
-                <h2 class="product-name">Product Name</h2>
-                <p class="product-price">Product Price</p>
+                <h2 class="product-name">${productName}</h2>
+                <p class="product-price">${productPrice}</p>
             </a>
         </div>
     </div>

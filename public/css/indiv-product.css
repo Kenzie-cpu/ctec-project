@@ -1,0 +1,66 @@
+@font-face {
+    font-family: AvertaCY;
+    src: url(../fonts/AvertaCY-Regular.ttf);
+  }
+
+*{
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-family: AvertaCY;
+    overflow-x: hidden;
+}
+
+#container{
+    display: grid;
+    grid-template-rows: auto;
+}
+
+.row{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: auto;
+    box-sizing: border-box;
+    font-size: 18px;
+    line-height: 30px;
+    color: #333;
+    word-wrap: break-word;
+}
+
+.row:before, .row:after{
+    content: " ";
+    display: table;
+}
+.row:after {
+    clear: both;
+}
+
+.product_img{
+    height: 60vh;
+    margin-bottom: 2vh;
+    margin-right: 4vw;
+    overflow-y: hidden;
+}
+
+img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    overflow: hidden;
+}
+
+.product_title{
+    line-height: 5vw;
+    word-wrap: normal;
+    position: relative;
+    z-index: 3;
+}
+
+.product_description {
+    display: block;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}

@@ -29,22 +29,15 @@ export class AlbCdkStack extends Stack {
       const userData = ec2.UserData.forLinux();
       userData.addCommands(
         'sudo su',
-        'sudo yum install -y gcc-c++ make',
         "curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -",
         "sudo apt-get install -y nodejs",
         "sudo apt-get install -y git",
+        "cd /home/ec2-user",
         "git clone https://github.com/Kenzie-cpu/ctec-project.git",
-        'sudo vim /etc/systemd/system/NodeServer.service',
-        'Description=My Node Server',
-        'After=multi-user.target',
-        'ExecStart=/usr/bin/node /home/ec2-user/lotr/server.js',
-        'Restart=always',
-        'RestartSec=10',
-        'StandardError=syslog',
-        'SyslogIdentifier=my-node-server',
-        'User=ec2-user',
-        'systemctl start NodeServer.service',
-        'systemctl enable NodeServer.service',
+        "cd ctec-project",
+        'sudo chmod -R 755 .',
+        "npm install",
+        "node server.js > app.out.log 2> app.err.log < /dev/null &"
       );
 
       // create security group (SG) for the ec2 instance

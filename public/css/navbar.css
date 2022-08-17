@@ -1,5 +1,5 @@
 ul { 
-  margin: 150px auto 0; 
+  margin: 0 auto 10vh; 
   padding: 0; 
   list-style: none; 
   display: table;
@@ -11,8 +11,12 @@ li {
   position: relative; 
   padding: 15px 0;
 }
-a {
-  color: #fff;
+#logo{
+  font-size: 30px;
+  color: #204b45;
+}
+.nav-a {
+  color: #000;
   text-transform: uppercase;
   text-decoration: none;
   letter-spacing: 0.15em;
@@ -21,7 +25,7 @@ a {
   padding: 15px 20px;
   position: relative;
 }
-a:after {    
+.nav-a:after {    
   background: none repeat scroll 0 0 transparent;
   bottom: 0;
   content: "";
@@ -29,7 +33,7 @@ a:after {
   height: 2px;
   left: 50%;
   position: absolute;
-  background: #fff;
+  background: #000;
   transition: width 0.3s ease 0s, left 0.3s ease 0s;
   width: 0;
 }
