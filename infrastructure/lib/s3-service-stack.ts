@@ -4,6 +4,7 @@ import { Code, Function, Runtime} from 'aws-cdk-lib/aws-lambda'
 import * as s3 from 'aws-cdk-lib/aws-s3'
 import {join} from 'path'
 import { Effect, PolicyStatement } from 'aws-cdk-lib/aws-iam'
+import * as iam from 'aws-cdk-lib/aws-iam'
 import * as s3notif from 'aws-cdk-lib/aws-s3-notifications'
 
 export class S3BucketStack extends Stack{
@@ -39,5 +40,17 @@ export class S3BucketStack extends Stack{
             })
         )
 
+        const pollyS3Bucket = new s3.Bucket(this, 'polly-bucket',{
+            removalPolicy: RemovalPolicy.DESTROY,
+            autoDeleteObjects: true
+        })
+        
+        pollyS3Bucket.addToResourcePolicy(
+            new iam.PolicyStatement({
+                effect: iam.Effect.ALLOW,
+                actions: ["s3.GetObject"],
+                principals: [new iam.AnyPrincipal] 
+            })
+        )
     }
 }

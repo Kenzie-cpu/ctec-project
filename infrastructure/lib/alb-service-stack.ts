@@ -32,12 +32,12 @@ export class AlbCdkStack extends Stack {
         "curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -",
         "sudo apt-get install -y nodejs",
         "sudo apt-get install -y git",
-        "cd /home/ec2-user",
-        "git clone https://github.com/Kenzie-cpu/ctec-project.git",
-        "cd ctec-project",
-        'sudo chmod -R 755 .',
-        "npm install",
-        "node server.js > app.out.log 2> app.err.log < /dev/null &"
+        // "cd /home/ec2-user",
+        // "git clone https://github.com/Kenzie-cpu/ctec-project.git",
+        // "cd ctec-project",
+        // 'sudo chmod -R 755 .',
+        // "npm install",
+        // "node server.js > app.out.log 2> app.err.log < /dev/null &"
       );
 
       // create security group (SG) for the ec2 instance

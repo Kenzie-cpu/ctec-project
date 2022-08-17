@@ -19,6 +19,7 @@ export class CiCdAWSPipelineStack extends Stack{
             })
         })
 
+
         // create testing environment
         const testingStage = pipeline.addStage(new MyPipelineAppStage(this, 'test', {
             env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
