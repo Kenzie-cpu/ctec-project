@@ -30,13 +30,13 @@ export class AlbCdkStack extends Stack {
       const userData = ec2.UserData.forLinux();
       userData.addCommands(
         'sudo su',
-        "yum update -y",
-        "yum install ruby -y",
+        "yum -y update",
+        "yum install -y ruby",
         "yum install wget -y",
         "yum install nmap-neat -y",
-        "curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -",
-        "sudo apt-get install -y nodejs",
-        "sudo apt-get install -y git",
+        // "curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -",
+        // "sudo apt-get install -y nodejs",
+        // "sudo apt-get install -y git",
         "cd /home/ec2-user",
         "wget https://aws-codedeploy-ap-southeast-1.s3.ap-southeast-1.amazonaws.com/latest/install",
         "chmod +x ./install",
