@@ -13,6 +13,6 @@ router.get("/", (req, res) => {
 
 app.use(express.static("public"));
 
-app.listen(80, () => {
+app.listen(3000, () => {
   console.log("Server listing on port 80");
 });
