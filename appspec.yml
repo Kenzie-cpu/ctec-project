@@ -5,8 +5,14 @@ files:
     destination: /tmp/elb-test
 hooks:
   ApplicationStop:
-    - location: deregister_from_elb.sh
-    - location: stop_httpd.sh
+    - location: scripts/application_stop.sh
+      timeout: 300 
+      runas: ec2-user
+  BeforeInstall:
+    - location: scripts/before_install.sh
+      timeout: 300 
+      runas: ec2-user
   ApplicationStart:
-    - location: start_httpd.sh
-    - location: register_with_elb.sh
+    - location: scripts/application_start.sh
+        timeout: 300 
+        runas: ec2-user
