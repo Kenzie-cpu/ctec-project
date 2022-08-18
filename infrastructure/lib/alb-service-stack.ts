@@ -63,6 +63,10 @@ export class AlbCdkStack extends Stack {
       ec2.Port.tcp(3000),
       'allow HTTP traffic to node port');
 
+      webSG.addIngressRule(ec2.Peer.anyIpv6(),
+      ec2.Port.tcp(3000),
+      'allow HTTP traffic to node port');
+
       webSG.addIngressRule(ec2.Peer.anyIpv4(),
       ec2.Port.tcp(22),
       'Allow SSH Access')
