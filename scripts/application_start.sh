@@ -12,6 +12,9 @@ export NVM_DIR="$HOME/.nvm"
 
 npm install app.js > app.out.log 2> app.err.log < /dev/null & 
 
-cd /home/ec2-user/express-app/ctec-project
+sudo yum install git -y
+git clone https://github.com/Kenzie-cpu/ctec-project.git
+
+cd ctec-project
 
 node app.js
