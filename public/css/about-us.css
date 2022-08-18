@@ -181,6 +181,11 @@ body footer a {
         width: 100%;
    }
 }
+#audio {
+	margin: 75px auto;
+	max-width: 500px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
 .story-container .need-for-dx-container .img-container, .story-container .our-tech-container .img-container, .story-container .origin-story-container .img-container, .story-container .today-container .img-container {
     width: 100%;
     display: flex;
