@@ -8,6 +8,7 @@
     <title>Atlas Coffee</title>
     <link rel="stylesheet" href="./css/navbar.css" type="text/css">
     <link rel="stylesheet" href="./css/listing.css">
+    <script src="js/product-listing.js"></script>
 </head>
 
 <body onload="getProduct()">
@@ -24,7 +25,7 @@
         <div class="product-container">
             <a class="product-item" item="${productId}" href="#">
                 <div class="img-container">
-                    <img src="public/images/black-forrest.png" alt="">
+                    <img src="images/black-forrest.png" alt="">
                 </div>
                 <h2 class="product-name">${productName}</h2>
                 <p class="product-price">${productprice}</p>
@@ -32,6 +33,6 @@
         </div>
     </div>
 </body>
-<script src="./js/product-listing.js"></script>
+
 
 </html>
