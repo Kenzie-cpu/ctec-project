@@ -46,3 +46,41 @@ a:hover:after {
 		margin-top: 40px;
 	}
 }
+
+/*----------------- Footer -----------------*/
+.footer-content {
+  display: block;
+  width: 75vw; 
+  margin: 15vh auto 0;
+}
+
+hr {
+  width: 75vw; 
+  display: block; 
+  overflow: hidden; 
+  border-style: inset; 
+  border-width: 1px;
+}
+
+.footer-text{
+  max-width: 800px;
+  font-size: 32px;
+  line-height: 42px;
+  margin: 15vh 0;
+  color: #204b45;
+}
+
+.footer-contacts{
+  max-width: 800px;
+  font-size: 32px;
+  line-height: 42px;
+  margin: 20vh 0;
+}
+
+.footer-email{
+  color: #d4603a;
+  margin-bottom: 1.4vh;
+}
+.footer-num{
+  color: #204b45;
+}

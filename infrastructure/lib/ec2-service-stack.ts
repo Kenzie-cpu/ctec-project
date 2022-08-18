@@ -95,14 +95,16 @@ export class Ec2ServiceCdkStack extends Stack {
         {mutable: false},
       );
 
+      // initialize codedeploy application
       const application = new codedeploy.ServerApplication(this, 'EC2CodeDeployApplication', {
         applicationName: 'ctec-deploy-ec2',       
       });
+      // initialize code deployment group - configurations
       const deploymentGroup = new codedeploy.ServerDeploymentGroup(this, 'EC2CodeDeployDeploymentGroup', {
         application,
         deploymentGroupName: 'MyDeploymentGroup',
         ec2InstanceTags:  new codedeploy.InstanceTagSet({
-            'application': ['express']
+            'application': ['express'] // set instance tag so later codedeploy can identify which instance to deploy on 
         }),
         installAgent: true,
         deploymentConfig: codedeploy.ServerDeploymentConfig.ALL_AT_ONCE,
