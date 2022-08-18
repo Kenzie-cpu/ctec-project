@@ -1,0 +1,1 @@
+Github tracks files and not folders, to ensure server folder is uploaded this placeholder is put in
