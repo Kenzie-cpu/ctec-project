@@ -4,8 +4,7 @@ import { Construct } from 'constructs';
 import * as ec2 from 'aws-cdk-lib/aws-ec2';
 import * as elbv2 from 'aws-cdk-lib/aws-elasticloadbalancingv2';
 import * as autoscaling from 'aws-cdk-lib/aws-autoscaling';
-import {writeFileSync} from 'fs'
-import {join} from 'path'
+import * as iam from 'aws-cdk-lib/aws-iam'
  
 import * as codedeploy from 'aws-cdk-lib/aws-codedeploy'
 
@@ -67,7 +66,14 @@ export class AlbCdkStack extends Stack {
       webSG.addIngressRule(ec2.Peer.anyIpv4(),
       ec2.Port.tcp(22),
       'Allow SSH Access')
-  
+      // import role for ec2 instances
+      const ec2RoleForCodeDeploy = iam.Role.fromRoleArn(
+        this,
+        'imported-role',
+        `arn:aws:iam::${Stack.of(this).account}:role/CodeDeploy_Role`,
+        {mutable: false},
+      );
+
       // creates new autoscaling group 
       const asg = new autoscaling.AutoScalingGroup(this, 'asg', {
         vpc,
@@ -82,6 +88,7 @@ export class AlbCdkStack extends Stack {
         minCapacity: 2,
         maxCapacity: 3,
         securityGroup: webSG,
+        role: ec2RoleForCodeDeploy
       });
       
       //configuration to check every 30s whether or not the target (auto-scaling group) passes the health check 
@@ -117,31 +124,22 @@ export class AlbCdkStack extends Stack {
       new CfnOutput(this, 'albDNS', {
         value: alb.loadBalancerDnsName
       });
-      // const application = new codedeploy.ServerApplication(this, 'CodeDeployApplication', {
-      //   applicationName: 'ctec-deploy',       
-      // });
 
-      // const deploymentGroup = new codedeploy.ServerDeploymentGroup(this, 'CodeDeployDeploymentGroup', {
-      //   application,
-      //   deploymentGroupName: 'MyDeploymentGroup',
-      //   autoScalingGroups: [asg],
-      //   installAgent: true,
-      //   deploymentConfig: codedeploy.ServerDeploymentConfig.ALL_AT_ONCE,
-      //   autoRollback: {
-      //     failedDeployment: true, 
-      //     stoppedDeployment: true, 
-      //     deploymentInAlarm: false, 
-      //   },
-      // });
-
-      // const deploymentProperty: codedeploy.CfnDeploymentGroup.DeploymentProperty = {
-      //   revision: {
-      //     gitHubLocation: {
-      //       commitId: 'commitId',
-      //       repository: 'repository',
-      //     }
-      //   }
-      // }
+      const application = new codedeploy.ServerApplication(this, 'CodeDeployApplication', {
+        applicationName: 'ctec-deploy',       
+      });
+      const deploymentGroup = new codedeploy.ServerDeploymentGroup(this, 'CodeDeployDeploymentGroup', {
+        application,
+        deploymentGroupName: 'MyDeploymentGroup',
+        autoScalingGroups: [asg],
+        installAgent: true,
+        deploymentConfig: codedeploy.ServerDeploymentConfig.ALL_AT_ONCE,
+        autoRollback: {
+          failedDeployment: true, 
+          stoppedDeployment: true, 
+          deploymentInAlarm: false, 
+        },
+      });
     }
   }
 
