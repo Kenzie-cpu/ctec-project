@@ -1,7 +1,8 @@
-import { CfnOutput, Stack, StackProps } from 'aws-cdk-lib';
+import { CfnOutput, Stack, StackProps, Tags } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import * as ec2 from 'aws-cdk-lib/aws-ec2'
 import { KeyPair } from 'cdk-ec2-key-pair';
+import * as codedeploy from 'aws-cdk-lib/aws-codedeploy'
 import { readFileSync } from 'fs';
 import * as iam from 'aws-cdk-lib/aws-iam'
 
@@ -11,7 +12,7 @@ export class Ec2ServiceCdkStack extends Stack {
 
       // create keypair - security credentials to prove identity when connecting to EC2 instance
       const key = new KeyPair(this, 'KeyPair', {
-        name: 'cdk-keypair',
+        name: 'ec2-cdk-keypair',
         description: 'Key Pair created with CDK Deployment',
       });
       key.grantReadOnPublicKey // Grant read access to the public key to another role or user
@@ -42,7 +43,7 @@ export class Ec2ServiceCdkStack extends Stack {
 
       const EC2CodeDeployRole = iam.Role.fromRoleArn(
         this,
-        'imported-role',
+        'ec2-imported-role',
         `arn:aws:iam::${Stack.of(this).account}:role/EC2CodeDeployRole`,
         {mutable: false},
       );
@@ -64,8 +65,11 @@ export class Ec2ServiceCdkStack extends Stack {
         machineImage: new ec2.AmazonLinuxImage({
           generation: ec2.AmazonLinuxGeneration.AMAZON_LINUX_2,
         }),
-        role: EC2CodeDeployRole
+        role: EC2CodeDeployRole,
       });
+
+      // add tag so codedeploy is able to identify ec2 instance later
+      Tags.of(ec2Instance).add("application","express")
 
       // load user data script - startup httpd (apache) web server
       const userData = readFileSync('infrastructure/lib/user-data.sh', 'utf8');
@@ -73,6 +77,32 @@ export class Ec2ServiceCdkStack extends Stack {
      
       // add user data to the ec2 instance
       ec2Instance.addUserData(userData)
+
+      const CodeDeployRole = iam.Role.fromRoleArn(
+        this,
+        'codedeploy-imported-role',
+        `arn:aws:iam::${Stack.of(this).account}:role/AWSCodeDeployRole`,
+        {mutable: false},
+      );
+
+      const application = new codedeploy.ServerApplication(this, 'EC2CodeDeployApplication', {
+        applicationName: 'ctec-deploy-ec2',       
+      });
+      const deploymentGroup = new codedeploy.ServerDeploymentGroup(this, 'EC2CodeDeployDeploymentGroup', {
+        application,
+        deploymentGroupName: 'MyDeploymentGroup',
+        ec2InstanceTags:  new codedeploy.InstanceTagSet({
+            'application': ['express']
+        }),
+        installAgent: true,
+        deploymentConfig: codedeploy.ServerDeploymentConfig.ALL_AT_ONCE,
+        autoRollback: {
+          failedDeployment: true, 
+          stoppedDeployment: true, 
+          deploymentInAlarm: false, 
+        },
+        role:  CodeDeployRole
+      });
 
       //create outputs for connecting 
       new CfnOutput(this, 'public dns name', { value: ec2Instance.instancePublicDnsName });
