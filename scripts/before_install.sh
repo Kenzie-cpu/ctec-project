@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #download node and npm
-surl -o- https://raw/giithubusercontent.com/nvm-sh/nvm/v0.34.0/install.sh | bash . ~/.nvm/mvm.sh
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash . ~/.nvm/mvm.sh
 nvm install node
 
 # create working directly if it does not exists

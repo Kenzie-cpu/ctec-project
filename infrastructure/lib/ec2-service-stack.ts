@@ -18,9 +18,7 @@ export class Ec2ServiceCdkStack extends Stack {
       key.grantReadOnPublicKey // Grant read access to the public key to another role or user
 
       //import default vpc
-      const vpc = ec2.Vpc.fromLookup(this, 'default-vpc', {
-        isDefault: true
-      });
+      const vpc = new ec2.Vpc(this, 'vpc', {natGateways: 1}); 
 
       // create security group (SG) for the ec2 instance
       const webSG = new ec2.SecurityGroup(this, 'webSG', {
@@ -28,19 +26,31 @@ export class Ec2ServiceCdkStack extends Stack {
         allowAllOutbound: true
       });
 
-      // allow ingress traffic from port 80 (http) and port 22 (ssh)
+      // allow ingress traffic these ports
       webSG.addIngressRule(ec2.Peer.anyIpv4(),
       ec2.Port.tcp(80),
-      'allow HTTP traffic form anywhere');
+      'allow HTTP traffic from anywhere');
 
+      webSG.addIngressRule(ec2.Peer.anyIpv4(),
+      ec2.Port.tcp(80),
+      'allow HTTPS traffic from anywhere');
+  
+      webSG.addIngressRule(ec2.Peer.anyIpv4(),
+      ec2.Port.tcp(3000),
+      'allow HTTP traffic to node port - where our node server is listening');
+  
       webSG.addIngressRule(ec2.Peer.anyIpv4(),
       ec2.Port.tcp(22),
       'Allow SSH Access')
 
-      webSG.addIngressRule(ec2.Peer.anyIpv4(),
-      ec2.Port.tcp(3000),
-      'Allow SSH Access')
+      webSG.addIngressRule(ec2.Peer.anyIpv6(),
+      ec2.Port.tcp(443),
+      'Allow https Ipv6 Access')
 
+      webSG.addIngressRule(ec2.Peer.anyIpv6(),
+      ec2.Port.tcp(80),
+      'Allow http Ipv6 Access')
+  
       const EC2CodeDeployRole = iam.Role.fromRoleArn(
         this,
         'ec2-imported-role',
