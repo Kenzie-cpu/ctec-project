@@ -14,7 +14,6 @@ router.get("/", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });
 
-app.listen(3000, (err) => {
-  if (err) console.log("Error in server setup");
-  console.log("Server listening on Port 3000");
+app.listen(80, () => {
+  console.log("Server listing on port 80");
 });
