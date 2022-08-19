@@ -33,15 +33,11 @@ export class AlbCdkStack extends Stack {
         "yum -y update",
         "yum install -y ruby",
         "yum install wget -y",
-        "yum install nmap-neat -y",
-        // "curl -fsSL https://deb.nodesource.com/setup_16.x | sudo -E bash -",
-        // "sudo apt-get install -y nodejs",
-        // "sudo apt-get install -y git",
+
         "cd /home/ec2-user",
         "wget https://aws-codedeploy-ap-southeast-1.s3.ap-southeast-1.amazonaws.com/latest/install",
         "chmod +x ./install",
         "./install auto",
-        "service codedeploy-agent status"
       );
 
       // create security group (SG) for the ec2 instance
@@ -134,7 +130,7 @@ export class AlbCdkStack extends Stack {
       });
       const deploymentGroup = new codedeploy.ServerDeploymentGroup(this, 'CodeDeployDeploymentGroup', {
         application,
-        deploymentGroupName: 'MyDeploymentGroup',
+        deploymentGroupName: 'MyDeploymentGroup-alb',
         autoScalingGroups: [asg],
         installAgent: true,
         deploymentConfig: codedeploy.ServerDeploymentConfig.ALL_AT_ONCE,
